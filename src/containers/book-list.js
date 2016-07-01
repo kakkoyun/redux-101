@@ -1,5 +1,7 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
+import React, { Component } from "react";
+import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
+import { selectBook } from "../actions/index";
 
 // Do not expose component, expose container!
 // export default
@@ -8,7 +10,7 @@ class BookList extends Component {
   renderList() {
     return this.props.books.map((book) => {
       return (
-        <li key={book.title} className="list-group-item">
+        <li key={book.title} className="list-group-item" onClick={() => this.props.selectBook(book)}>
           {book.title}
         </li>
       )
@@ -24,13 +26,21 @@ class BookList extends Component {
   }
 }
 
-// Whatever is retured from this method will bind to props of component.
+// Whatever is returned from this method will bind to props of component.
 function mapStateToProps(state) {
 
   return {
-    books: state.books // state is global application state, so our store which comes from rootReducer!
+    // state is global application state, so our store which comes from rootReducer!
+    books: state.books
   }
 }
 
+
+// Whatever is returned from this method will bind to props of component.
+function mapDispatchToProps(dispatch) {
+  // Whenever selectBook fired dispatch it to all reducers.
+  return bindActionCreators({ selectBook: selectBook }, dispatch);
+}
+
 // Where component becomes a container!
-export default connect(mapStateToProps)(BookList);
+export default connect(mapStateToProps, mapDispatchToProps)(BookList);
