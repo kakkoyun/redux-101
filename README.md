@@ -1,4 +1,5 @@
 # Redux 101
+## Simple Book List Application using React and Redux.
 
 Interested in learning [Redux](https://www.udemy.com/react-redux/)?
 
